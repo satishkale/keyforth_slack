@@ -1,7 +1,7 @@
 var Botkit = require('botkit');
-const config = require('./config');
+//const config = require('./config');
 
-const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN || config.SLACK_BOT_TOKEN_1;
+const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN ;
 
 var infinispan = require('infinispan');
 var jdgHost = process.env.DATAGRID_HOTROD_SERVICE_HOST || "127.0.0.1";
