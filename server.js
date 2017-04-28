@@ -80,8 +80,7 @@ controller.hears(['What is my employee number ?'], 'direct_message,direct_mentio
 
 controller.hears(['Do I have any pending time reports?'], 'direct_message,direct_mention,mention', function(bot, message) {
     bot.reply(message, "Good Job, You have no pending time reports"+lookup_cache());
-git remote add origin https://github.com/anurag-saran/keyforth_slack.git
-git push -u origin master
+
 });
 
 controller.hears(['Please change my salary account detais. My bank routing no is  (.*) and my account no is (.*)'], 'direct_message', function(bot, message) {
