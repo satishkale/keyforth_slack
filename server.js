@@ -9,6 +9,8 @@ var jdgHost = process.env.DATAGRID_HOTROD_SERVICE_HOST || "127.0.0.1";
 var jdgPort = process.env.DATAGRID_HOTROD_SERVICE_PORT || 11222;
 var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
 
+console.log(" SLACK_BOT_TOKEN:"+ SLACK_BOT_TOKEN);
+
 function lookup_cache(){
      var response=1;
  connected.then(function (client) {
