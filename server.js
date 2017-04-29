@@ -1,7 +1,7 @@
 var Botkit = require('botkit');
 //const config = require('./config');
 
-//const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN || config.SLACK_BOT_TOKEN_1;
+const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN ;
 
 
 var infinispan = require('infinispan');
@@ -47,7 +47,7 @@ var controller = Botkit.slackbot({
 });
 
 var bot = controller.spawn({
-    token: "xoxb-175184966880-3aq9WGow0DtDPEc7NfTlkZT4"
+    token:  SLACK_BOT_TOKEN
 })
 
 bot.startRTM(function(err, bot, payload) {
