@@ -67,11 +67,14 @@ controller.hears(['why did the chicken cross the road'], 'direct_message,direct_
     bot.reply(message, get_response());
 });
 
+
+
 controller.hears(['help'], 'direct_message,direct_mention,mention', (bot, message) => {
     bot.reply(message, {
         text: `You can ask me things like:
     "What is my employee number ?"
     "Do I have any pending time reports ?"
+    "Has my last quater salary credited ?"
     "How many paid vacations do I still have?"
     "Will i get a promotion this year?"`
     });
@@ -95,10 +98,10 @@ controller.hears(['What is my employee number ?'], 'direct_message,direct_mentio
                      console.log("**********undefined:********* empSlackID:"+empSlackID);
                     
                 } else {
-                     var empRec = JSON.parse(value);    
+                    var empRec = JSON.parse(value);     
                      bot.reply(message, "Your Employee No is :"+empRec.employeeNo);
                      
-                     console.log("****value:"+(value));
+                     console.log("CacheData:"+(value));
                     
                     
                 }
@@ -118,12 +121,42 @@ controller.hears(['What is my employee number ?'], 'direct_message,direct_mentio
 //    console.log("message.user:"+empRec.employeeNo);
 //});
 
-
+controller.hears(['Has my last quater salary credited ?'], 'direct_message,direct_mention,mention', function(bot, message) {
+     var empSlackID = message.user.toLowerCase();
+     var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
+    connected.then(function (client) {
+        client.get(empSlackID).then(
+            function(value) {
+                if(value == undefined)  {
+                     bot.reply(message, "System Error: Reports check failed");
+                } else {
+                    var empRec = JSON.parse(value);  
+                    if(empRec.salaryCredited==1)
+                      bot.reply(message, "Your last quater salary been credited");
+                    else
+                      bot.reply(message, "This is still being processed");    
+                     console.log("CacheData:"+(value));
+                }
+            });
+        });
+});
 
 
 controller.hears(['Do I have any pending time reports ?'], 'direct_message,direct_mention,mention', function(bot, message) {
-    bot.reply(message, "Good Job, You have no pending time reports"+lookup_cache());
-
+     var empSlackID = message.user.toLowerCase();
+     var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
+    connected.then(function (client) {
+        client.get(empSlackID).then(
+            function(value) {
+                if(value == undefined)  {
+                     bot.reply(message, "System Error: Reports check failed");
+                } else {
+                    var empRec = JSON.parse(value);  
+                     bot.reply(message, "Your pending time report count is: :"+empRec.timeReport);
+                     console.log("CacheData:"+(value));
+                }
+            });
+        });
 });
 
 controller.hears(['Please change my salary account detais. My bank routing no is  (.*) and my account no is (.*)'], 'direct_message', function(bot, message) {
@@ -132,5 +165,4 @@ controller.hears(['Please change my salary account detais. My bank routing no is
     bot.reply(message, 'Got it. We will update your bank routing no to:' + routingNo + ' and account no to :'+accountNo);
 
 });
-
 
