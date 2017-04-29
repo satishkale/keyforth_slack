@@ -81,7 +81,7 @@ controller.hears(['What is my employee number ?'], 'direct_message,direct_mentio
      console.log("hat is my employee number :message?"+JSON.stringify(message));
      console.log("hat is my employee number : message.user ?"+message.user);
      
-    var empSlackID = message.user;
+    var empSlackID = message.user.toLowerCase();
      var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
      console.log("connected:111");
     connected.then(function (client) {
