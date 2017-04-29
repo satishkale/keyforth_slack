@@ -83,19 +83,21 @@ controller.hears(['What is my employee number ?'], 'direct_message,direct_mentio
      
     var empSlackID = message.user.toLowerCase();
      var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
-     console.log("connected:111");
+     console.log("connected: Hears");
     connected.then(function (client) {
-    console.log("connected:222:message.user:"+message.user);
+    console.log("connected:Hears:message.user:"+message.user);
         client.get(message.user).then(
             function(empSlackID) {
+                console.log("************:********* empSlackID:"+empSlackID);
                 if(value == undefined)  {
-                     console.log("**********undefined:********* empSlackID:"+empSlackID);
                      bot.reply(message, "Your Employee details not found");
+                     console.log("**********undefined:********* empSlackID:"+empSlackID);
+                    
                 } else {
-                     
+                     bot.reply(message, "Your Employee No is :"+empRec.employeeNo);
                      var empRec = JSON.parse(value);
                      console.log("CacheData:"+(value));
-                    bot.reply(message, "Your Employee No is :"+empRec.employeeNo);
+                    
                     
                 }
             });
