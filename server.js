@@ -89,14 +89,16 @@ controller.hears(['What is my employee number ?'], 'direct_message,direct_mentio
         client.get(empSlackID).then(
             function(value) {
                 console.log("************:********* empSlackID:"+empSlackID);
+                console.log("************:********* value:"+value);
                 if(value == undefined)  {
                      bot.reply(message, "Your Employee details not found");
                      console.log("**********undefined:********* empSlackID:"+empSlackID);
                     
                 } else {
+                     var empRec = JSON.parse(value);    
                      bot.reply(message, "Your Employee No is :"+empRec.employeeNo);
-                     var empRec = JSON.parse(value);
-                     console.log("CacheData:"+(value));
+                     
+                     console.log("****value:"+(value));
                     
                     
                 }
