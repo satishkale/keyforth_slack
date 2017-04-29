@@ -22,17 +22,16 @@ function lookup_cache(empID){
         client.get(empID).then(
             function(value) {
                 if(value == undefined)  {
-                     console.log("undefined:");
-                    response="NotFound";
+                     console.log("**********undefined:*********");
+                    retunr(value);
                 } else {
-                     console.log("found:");
+                     console.log("**********found:**********");
                     console.log("CacheData:"+(value));
-                    response=value;
+                    retunr(value);
                 }
             });
         });
-     console.log("***** Return");
-    return response;
+    
 }
 
 function get_response() {
