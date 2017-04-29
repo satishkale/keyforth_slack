@@ -7,7 +7,7 @@ const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN ;
 var infinispan = require('infinispan');
 var jdgHost = process.env.DATAGRID_HOTROD_SERVICE_HOST || "127.0.0.1";
 var jdgPort = process.env.DATAGRID_HOTROD_SERVICE_PORT || 11222;
-var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
+//var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
 
 console.log(" SLACK_BOT_TOKEN:"+ SLACK_BOT_TOKEN);
 
@@ -15,8 +15,10 @@ console.log(" SLACK_BOT_TOKEN:"+ SLACK_BOT_TOKEN);
 function lookup_cache(empID){
      var response=1;
     console.log("Inside Lookup Cahce empID:"+empID);
+     var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
+     console.log("connected:111");
  connected.then(function (client) {
-    console.log("connected:");
+    console.log("connected:222");
         client.get(empID).then(
             function(value) {
                 if(value == undefined)  {
