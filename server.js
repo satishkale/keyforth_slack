@@ -83,16 +83,10 @@ controller.hears(['What is my employee number ?'], 'direct_message,direct_mentio
      console.log("hat is my employee number : message.user ?"+message.user);
     var emp = lookup_cache(message.user);
     console.log("Cahce:"+emp);
-     var empRec = JSON.parse(lookup_cache(emp));
-    console.log("empRec JSON:"+JSON.stringify(empRec));
+     var empRec = JSON.parse(emp);
     console.log("empRec OBJ:"+empRec);
-    //bot.reply(message, "Your Employee No is "+emp.employeeNo);
     bot.reply(message, "Your Employee No is 7676251"+empRec.employeeNo);
     console.log("message.user:"+empRec.employeeNo);
-    //console.log("Cahce:"+lookup_cache());
-    // console.log("bot:"+JSON.stringify(bot));
-    console.log("message:"+JSON.stringify(emp));
-     
 });
 
 controller.hears(['Do I have any pending time reports ?'], 'direct_message,direct_mention,mention', function(bot, message) {
