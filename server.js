@@ -78,16 +78,17 @@ controller.hears(['help'], 'direct_message,direct_mention,mention', (bot, messag
     });
 });
 
-controller.hears(['What is my employee number (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
-     console.log("hat is my employee number message.match[1] ?"+message.match[1]);
-     console.log("Cahce:"+lookup_cache(message.match[1]));
-    var emp = lookup_cache();
+controller.hears(['What is my employee number ?'], 'direct_message,direct_mention,mention', function(bot, message) {
+     console.log("hat is my employee number :message?"+JSON.stringify(message));
+     console.log("hat is my employee number : message.user ?"+message.user);
+    var emp = lookup_cache(message.user);
     console.log("Cahce:"+emp);
-     var emp = JSON.parse(lookup_cache());
-    console.log("Cahce:"+emp);
+     var empRec = JSON.parse(lookup_cache(emp));
+    console.log("empRec JSON:"+JSON.stringify(empRec));
+    console.log("empRec OBJ:"+empRec);
     //bot.reply(message, "Your Employee No is "+emp.employeeNo);
-    bot.reply(message, "Your Employee No is 7676251");
-    console.log("message.user:"+emp.employeeNo);
+    bot.reply(message, "Your Employee No is 7676251"+empRec.employeeNo);
+    console.log("message.user:"+empRec.employeeNo);
     //console.log("Cahce:"+lookup_cache());
     // console.log("bot:"+JSON.stringify(bot));
     console.log("message:"+JSON.stringify(emp));
