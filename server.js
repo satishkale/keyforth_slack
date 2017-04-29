@@ -86,8 +86,8 @@ controller.hears(['What is my employee number ?'], 'direct_message,direct_mentio
      console.log("connected: Hears");
     connected.then(function (client) {
     console.log("connected:Hears:message.user:"+message.user);
-        client.get(message.user).then(
-            function(empSlackID) {
+        client.get(empSlackID).then(
+            function(value) {
                 console.log("************:********* empSlackID:"+empSlackID);
                 if(value == undefined)  {
                      bot.reply(message, "Your Employee details not found");
