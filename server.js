@@ -43,7 +43,7 @@ function get_response() {
 }
 
 var controller = Botkit.slackbot({
-    debug: false
+    debug: true
 });
 
 var bot = controller.spawn({
