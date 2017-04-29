@@ -80,13 +80,42 @@ controller.hears(['help'], 'direct_message,direct_mention,mention', (bot, messag
 controller.hears(['What is my employee number ?'], 'direct_message,direct_mention,mention', function(bot, message) {
      console.log("hat is my employee number :message?"+JSON.stringify(message));
      console.log("hat is my employee number : message.user ?"+message.user);
-    var emp = lookup_cache(message.user);
-    console.log("Cahce:"+emp);
-     var empRec = JSON.parse(emp);
-    console.log("empRec OBJ:"+empRec);
-    bot.reply(message, "Your Employee No is 7676251"+empRec.employeeNo);
-    console.log("message.user:"+empRec.employeeNo);
+     
+   
+     var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
+     console.log("connected:111");
+    connected.then(function (client) {
+    console.log("connected:222");
+        client.get(message.user).then(
+            function(value) {
+                if(value == undefined)  {
+                     console.log("**********undefined:*********");
+                     bot.reply(message, "Your Employee details not found");
+                } else {
+                     
+                     var empRec = JSON.parse(value);
+                     console.log("CacheData:"+(value));
+                    bot.reply(message, "Your Employee No is :"+empRec.employeeNo);
+                    
+                }
+            });
+        });
+   
 });
+//
+//controller.hears(['What is my employee number ?'], 'direct_message,direct_mention,mention', function(bot, message) {
+//     console.log("hat is my employee number :message?"+JSON.stringify(message));
+//     console.log("hat is my employee number : message.user ?"+message.user);
+//    var emp = lookup_cache(message.user);
+//    console.log("Cahce:"+emp);
+//     var empRec = JSON.parse(emp);
+//    console.log("empRec OBJ:"+empRec);
+//    bot.reply(message, "Your Employee No is 7676251"+empRec.employeeNo);
+//    console.log("message.user:"+empRec.employeeNo);
+//});
+
+
+
 
 controller.hears(['Do I have any pending time reports ?'], 'direct_message,direct_mention,mention', function(bot, message) {
     bot.reply(message, "Good Job, You have no pending time reports"+lookup_cache());
