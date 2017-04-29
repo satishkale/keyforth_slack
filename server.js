@@ -11,8 +11,10 @@ var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2
 
 console.log(" SLACK_BOT_TOKEN:"+ SLACK_BOT_TOKEN);
 
+
 function lookup_cache(){
      var response=1;
+    console.log("Inside Lookup Cahce");
  connected.then(function (client) {
     console.log("connected:");
         client.get(custID).then(
@@ -27,6 +29,7 @@ function lookup_cache(){
                 }
             });
         });
+     console.log("***** Return");
     return response;
 }
 
@@ -74,6 +77,7 @@ controller.hears(['help'], 'direct_message,direct_mention,mention', (bot, messag
 });
 
 controller.hears(['What is my employee number ?'], 'direct_message,direct_mention,mention', function(bot, message) {
+      console.log("hat is my employee number ?");
      console.log("Cahce:"+lookup_cache());
     var emp = lookup_cache();
     console.log("Cahce:"+emp);
