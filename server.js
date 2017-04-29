@@ -81,15 +81,15 @@ controller.hears(['What is my employee number ?'], 'direct_message,direct_mentio
      console.log("hat is my employee number :message?"+JSON.stringify(message));
      console.log("hat is my employee number : message.user ?"+message.user);
      
-   
+    var empSlackID = message.user;
      var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
      console.log("connected:111");
     connected.then(function (client) {
-    console.log("connected:222");
+    console.log("connected:222:"message.user);
         client.get(message.user).then(
-            function(value) {
+            function(empSlackID) {
                 if(value == undefined)  {
-                     console.log("**********undefined:*********");
+                     console.log("**********undefined:********* empSlackID:"+empSlackID);
                      bot.reply(message, "Your Employee details not found");
                 } else {
                      
