@@ -12,12 +12,12 @@ var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2
 console.log(" SLACK_BOT_TOKEN:"+ SLACK_BOT_TOKEN);
 
 
-function lookup_cache(){
+function lookup_cache(empID){
      var response=1;
-    console.log("Inside Lookup Cahce");
+    console.log("Inside Lookup Cahce empID:"+empID);
  connected.then(function (client) {
     console.log("connected:");
-        client.get(custID).then(
+        client.get(empID).then(
             function(value) {
                 if(value == undefined)  {
                      console.log("undefined:");
@@ -76,14 +76,15 @@ controller.hears(['help'], 'direct_message,direct_mention,mention', (bot, messag
     });
 });
 
-controller.hears(['What is my employee number ?'], 'direct_message,direct_mention,mention', function(bot, message) {
-      console.log("hat is my employee number ?");
-     console.log("Cahce:"+lookup_cache());
+controller.hears(['What is my employee number (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
+     console.log("hat is my employee number message.match[1] ?"+message.match[1]);
+     console.log("Cahce:"+lookup_cache(message.match[1]));
     var emp = lookup_cache();
     console.log("Cahce:"+emp);
      var emp = JSON.parse(lookup_cache());
     console.log("Cahce:"+emp);
-    bot.reply(message, "Your Employee No is "+emp.employeeNo);
+    //bot.reply(message, "Your Employee No is "+emp.employeeNo);
+    bot.reply(message, "Your Employee No is 7676251");
     console.log("message.user:"+emp.employeeNo);
     //console.log("Cahce:"+lookup_cache());
     // console.log("bot:"+JSON.stringify(bot));
