@@ -74,7 +74,7 @@ controller.hears(['help'], 'direct_message,direct_mention,mention', (bot, messag
         text: `You can ask me things like:
     "What is my employee number ?"
     "Do I have any pending time reports ?"
-    "Has my last quater salary credited ?"
+    "Has my last quarter salary credited ?"
     "How many paid vacations do I still have?"
     "Will i get a promotion this year?"`
     });
