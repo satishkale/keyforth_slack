@@ -159,7 +159,7 @@ controller.hears(['Do I have any pending time reports ?'], 'direct_message,direc
         });
 });
 
-controller.hears(['Please change my salary account detais. My bank routing no is  (.*) and my account no is (.*)'], 'direct_message', function(bot, message) {
+controller.hears(['Please change my salary account details. My bank routing no is  (.*) and my account no is (.*)'], 'direct_message', function(bot, message) {
     var routingNo = message.match[1];
      var accountNo = message.match[2];
     bot.reply(message, 'Got it. We will update your bank routing no to: ' + routingNo + ' and account no to : '+accountNo+ ". We will notify you once the change has taken place.");
