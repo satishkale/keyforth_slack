@@ -121,7 +121,7 @@ controller.hears(['What is my employee number ?'], 'direct_message,direct_mentio
 //    console.log("message.user:"+empRec.employeeNo);
 //});
 
-controller.hears(['Has my last quater salary credited ?'], 'direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['Has my last quarter salary credited ?'], 'direct_message,direct_mention,mention', function(bot, message) {
      var empSlackID = message.user.toLowerCase();
      var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
     connected.then(function (client) {
@@ -132,9 +132,9 @@ controller.hears(['Has my last quater salary credited ?'], 'direct_message,direc
                 } else {
                     var empRec = JSON.parse(value);  
                     if(empRec.salaryCredited==1)
-                      bot.reply(message, "Your last quater salary has been credited.");
+                      bot.reply(message, "Your last quarter salary has been credited.");
                     else
-                      bot.reply(message, "This is still being processed.");    
+                      bot.reply(message, "It is still being processed. ");    
                      console.log("CacheData:"+(value));
                 }
             });
@@ -162,7 +162,7 @@ controller.hears(['Do I have any pending time reports ?'], 'direct_message,direc
 controller.hears(['Please change my salary account detais. My bank routing no is  (.*) and my account no is (.*)'], 'direct_message', function(bot, message) {
     var routingNo = message.match[1];
      var accountNo = message.match[2];
-    bot.reply(message, 'Got it. We will update your bank routing no to:' + routingNo + ' and account no to :'+accountNo);
+    bot.reply(message, 'Got it. We will update your bank routing no to: ' + routingNo + ' and account no to : '+accountNo+ ". We will notify you once the change has taken place.");
 
 });
 
