@@ -132,9 +132,9 @@ controller.hears(['Has my last quater salary credited ?'], 'direct_message,direc
                 } else {
                     var empRec = JSON.parse(value);  
                     if(empRec.salaryCredited==1)
-                      bot.reply(message, "Your last quater salary been credited");
+                      bot.reply(message, "Your last quater salary has been credited.");
                     else
-                      bot.reply(message, "This is still being processed");    
+                      bot.reply(message, "This is still being processed.");    
                      console.log("CacheData:"+(value));
                 }
             });
@@ -149,7 +149,7 @@ controller.hears(['Do I have any pending time reports ?'], 'direct_message,direc
         client.get(empSlackID).then(
             function(value) {
                 if(value == undefined)  {
-                     bot.reply(message, "System Error: Reports check failed");
+                     bot.reply(message, "System Error: Reports check failed.");
                 } else {
                     var empRec = JSON.parse(value);  
                      bot.reply(message, "Your pending time report count is: :"+empRec.timeReport);
