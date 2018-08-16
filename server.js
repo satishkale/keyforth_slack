@@ -80,9 +80,9 @@ controller.hears(['help'], 'direct_message,direct_mention,mention', (bot, messag
     });
 });
 
-controller.hears(['What is my employee number ?'], 'direct_message,direct_mention,mention', function(bot, message) {
-     console.log("hat is my employee number :message?"+JSON.stringify(message));
-     console.log("hat is my employee number : message.user ?"+message.user);
+controller.hears(['What is my customer number ?'], 'direct_message,direct_mention,mention', function(bot, message) {
+     console.log("What is my customer number :message?"+JSON.stringify(message));
+     console.log("What is my customer number : message.user ?"+message.user);
      
     var empSlackID = message.user.toLowerCase();
      var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
@@ -94,12 +94,12 @@ controller.hears(['What is my employee number ?'], 'direct_message,direct_mentio
                 console.log("************:********* empSlackID:"+empSlackID);
                 console.log("************:********* value:"+value);
                 if(value == undefined)  {
-                     bot.reply(message, "Your Employee details not found");
+                     bot.reply(message, "Your Customer details not found");
                      console.log("**********undefined:********* empSlackID:"+empSlackID);
                     
                 } else {
                     var empRec = JSON.parse(value);     
-                     bot.reply(message, "Your Employee No is :"+empRec.employeeNo);
+                     bot.reply(message, "Your Customer No is :"+empRec.employeeNo);
                      
                      console.log("CacheData:"+(value));
                     
@@ -121,7 +121,7 @@ controller.hears(['What is my employee number ?'], 'direct_message,direct_mentio
 //    console.log("message.user:"+empRec.employeeNo);
 //});
 
-controller.hears(['Has my last quarter salary credited ?'], 'direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['Has my last bill been paid ?'], 'direct_message,direct_mention,mention', function(bot, message) {
      var empSlackID = message.user.toLowerCase();
      var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
     connected.then(function (client) {
@@ -131,10 +131,10 @@ controller.hears(['Has my last quarter salary credited ?'], 'direct_message,dire
                      bot.reply(message, "System Error: Reports check failed");
                 } else {
                     var empRec = JSON.parse(value);  
-                    if(empRec.salaryCredited==1)
-                      bot.reply(message, "Your last quarter salary has been credited.");
+                    if(empRec.billPaid==1)
+                      bot.reply(message, "Your last bill has been paid.");
                     else
-                      bot.reply(message, "It is still being processed. ");    
+                      bot.reply(message, "It is still not paid. ");    
                      console.log("CacheData:"+(value));
                 }
             });
@@ -142,7 +142,7 @@ controller.hears(['Has my last quarter salary credited ?'], 'direct_message,dire
 });
 
 
-controller.hears(['Do I have any pending time reports ?'], 'direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['Do I have any overdue bills ?'], 'direct_message,direct_mention,mention', function(bot, message) {
      var empSlackID = message.user.toLowerCase();
      var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
     connected.then(function (client) {
@@ -152,17 +152,17 @@ controller.hears(['Do I have any pending time reports ?'], 'direct_message,direc
                      bot.reply(message, "System Error: Reports check failed.");
                 } else {
                     var empRec = JSON.parse(value);  
-                     bot.reply(message, "Your pending time report count is: :"+empRec.timeReport);
+                     bot.reply(message, "Your pending bill count is: :"+empRec.timeReport);
                      console.log("CacheData:"+(value));
                 }
             });
         });
 });
 
-controller.hears(['Please change my salary account details. My bank routing no is  (.*) and my account no is (.*)'], 'direct_message', function(bot, message) {
+controller.hears(['Please pay my bill. My bank routing no is  (.*) and my account no is (.*)'], 'direct_message', function(bot, message) {
     var routingNo = message.match[1];
      var accountNo = message.match[2];
-    bot.reply(message, 'Got it. We will update your bank routing no to: ' + routingNo + ' and account no to : '+accountNo+ ". We will notify you once the change has taken place.");
+    bot.reply(message, 'Got it. We will use your bank routing no : ' + routingNo + ' and account no : '+accountNo+ ". We will notify you once the bill has been paid.");
 
 });
 
